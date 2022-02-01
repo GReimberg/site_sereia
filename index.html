@@ -2612,6 +2612,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       'label': 'Faça um orçamento',
       'cd1': 'Source Code'})
     })
+    
+    //Tag for social medias of team membears or site
+    document.querySelectorAll('ul.social-buttons').forEach((el) => {
+      el.addEventListener('click', (evt) => {
+        tracker.send('event', {
+          'category': 'Social Media',
+          'action': 'click',
+          'label': evt.target.className.split('-')[1],
+          'cd1': 'Source Code',
+          'cd2': evt.currentTarget.closest('div').className === 'team-member' ? 'member-social' : 'site-social',
+          'cd3': evt.target.closest('div').querySelector('h4') ? evt.target.closest('div').querySelector('h4').innerText : null
+        })
+      })
+  })
   </script>
 </body>
 
