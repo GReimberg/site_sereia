@@ -2625,7 +2625,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           'cd3': evt.target.closest('div').querySelector('h4') ? evt.target.closest('div').querySelector('h4').innerText : null
         })
       })
-  })
+    })
+    
+    //Tag for navigation
+    document.querySelectorAll('nav a.page-scroll').forEach((el) => {
+      el.addEventListener('click', (evt) => {
+        tracker.send('event', {
+          category: 'Navegação',
+          action: 'click',
+          label: 'Nav Bar Header',
+          cd1: 'Source Code',
+          cd2: 'Tag Name',
+          cd3: evt.target.innerText
+        })
+      })
+    })
+    
   </script>
 </body>
 
