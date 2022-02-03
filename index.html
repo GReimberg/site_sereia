@@ -2641,6 +2641,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       })
     })
     
+    //Tag for first field on contact form
+    document.querySelector('form#contactForm').addEventListener('input', (evt) => {
+      let field = evt.target.id;
+      tracker.send('event', {
+        category: 'Forms',
+        action: 'input',
+        label: 'First Field',
+        cd1: 'Source Code',
+        cd2: 'Tag Name',
+        cd3: field
+      })
+    }, {once:true})
+    
   </script>
 </body>
 
