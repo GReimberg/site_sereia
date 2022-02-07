@@ -2613,47 +2613,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       'cd1': 'Source Code'})
     })
     
-    //Tag for social medias of team membears or site
-    document.querySelectorAll('ul.social-buttons').forEach((el) => {
-      el.addEventListener('click', (evt) => {
-        tracker.send('event', {
-          'category': 'Social Media',
-          'action': 'click',
-          'label': evt.target.className.split('-')[1],
-          'cd1': 'Source Code',
-          'cd2': evt.currentTarget.closest('div').className === 'team-member' ? 'member-social' : 'site-social',
-          'cd3': evt.target.closest('div').querySelector('h4') ? evt.target.closest('div').querySelector('h4').innerText : null
-        })
-      })
-    })
-    
-    //Tag for navigation
-    document.querySelectorAll('nav a.page-scroll').forEach((el) => {
-      el.addEventListener('click', (evt) => {
-        tracker.send('event', {
-          category: 'Navegação',
-          action: 'click',
-          label: 'Nav Bar Header',
-          cd1: 'Source Code',
-          cd2: 'Tag Name',
-          cd3: evt.target.innerText
-        })
-      })
-    })
-    
-    //Tag for first field on contact form
-    document.querySelector('form#contactForm').addEventListener('input', (evt) => {
-      let field = evt.target.id;
-      tracker.send('event', {
-        category: 'Forms',
-        action: 'input',
-        label: 'First Field',
-        cd1: 'Source Code',
-        cd2: 'Tag Name',
-        cd3: field
-      })
-    }, {once:true})
-    
     //Tag: user hit end of page
     function getScrollPercentage() {
       let doc = document.documentElement;
@@ -2680,19 +2639,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         document.removeEventListener('scroll', sendEndOfPage)
       }
     })
-    
-    //Tag: user active for 1 minute
-    function sendPastMinute() {
-      tracker.send('event', {
-        category: 'Tempo em página',
-        action: 'timer',
-        label: 'Usuário ativo a 1 minuto',
-        cd1: 'Source Code',
-        cd2: 'Tag Name'
-      }) 
-    }
-    
-    document.addEventListener('DOMContentLoaded', () => setTimeout(sendPastMinute, 60000), {once: true});
     
     //Tag: check if user has seen the contact form
     function isFormInViewport() {
@@ -2724,6 +2670,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       }
     })
     
+    //Tag for first field on contact form
+    document.querySelector('form#contactForm').addEventListener('input', (evt) => {
+      let field = evt.target.id;
+      tracker.send('event', {
+        category: 'Forms',
+        action: 'input',
+        label: 'First Field',
+        cd1: 'Source Code',
+        cd2: 'Tag Name',
+        cd3: field
+      })
+    }, {once:true})
+    
     //Tag: get if user submit contact message and status
     document.querySelector('form#contactForm').addEventListener('submit', (evt) => {
       let status = !evt.currentTarget.querySelector('.error') ? 'sucess' : 'fail';
@@ -2737,6 +2696,47 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         cd3: status
       })
     })
+    
+    //Tag for navigation
+    document.querySelectorAll('nav a.page-scroll').forEach((el) => {
+      el.addEventListener('click', (evt) => {
+        tracker.send('event', {
+          category: 'Navegação',
+          action: 'click',
+          label: 'Nav Bar Header',
+          cd1: 'Source Code',
+          cd2: 'Tag Name',
+          cd3: evt.target.innerText
+        })
+      })
+    })
+    
+    //Tag for social medias of team membears or site
+    document.querySelectorAll('ul.social-buttons').forEach((el) => {
+      el.addEventListener('click', (evt) => {
+        tracker.send('event', {
+          'category': 'Social Media',
+          'action': 'click',
+          'label': evt.target.className.split('-')[1],
+          'cd1': 'Source Code',
+          'cd2': evt.currentTarget.closest('div').className === 'team-member' ? 'member-social' : 'site-social',
+          'cd3': evt.target.closest('div').querySelector('h4') ? evt.target.closest('div').querySelector('h4').innerText : null
+        })
+      })
+    })
+
+    //Tag: user active for 1 minute
+    function sendPastMinute() {
+      tracker.send('event', {
+        category: 'Tempo em página',
+        action: 'timer',
+        label: 'Usuário ativo a 1 minuto',
+        cd1: 'Source Code',
+        cd2: 'Tag Name'
+      }) 
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => setTimeout(sendPastMinute, 60000), {once: true}); 
     
   </script>
 </body>
