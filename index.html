@@ -2654,6 +2654,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       })
     }, {once:true})
     
+    //Tag: user hit end of page
+    function getScrollPercentage() {
+      let doc = document.documentElement;
+      let body = document.body;
+
+      return (doc['scrollTop'] || body['scrollTop'])/((doc['scrollHeight'] || body['scrollHeight']) - doc['clientHeight']) * 100
+    }
+    
+    function sendEndOfPage() {
+      if (getScrollPercentage() === 100) {
+        tracker.send('event', {
+          category: 'Fim da Página',
+          action: 'scroll',
+          label: 'End of page',
+          cd1: 'Source Code',
+          cd2: 'Tag Name'
+        })
+      }
+    }
+    
+    document.addEventListener('scroll', sendEndOfPage);
+    if (getScrollPercentage() === 100) {document.removeEventListener('scroll', sendEndOfPage)};
+    
   </script>
 </body>
 
