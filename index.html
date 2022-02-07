@@ -2677,6 +2677,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     document.addEventListener('scroll', sendEndOfPage);
     if (getScrollPercentage() === 100) {document.removeEventListener('scroll', sendEndOfPage)};
     
+    //Tag: user active for 1 minute
+    function sendPastMinute() {
+      tracker.send('event', {
+        category: 'Tempo em página',
+        action: 'timer',
+        label: 'Usuário ativo a 1 minuto',
+        cd1: 'Source Code',
+        cd2: 'Tag Name'
+      }) 
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => setTimeout(sendPastMinute, 60000));
+    
   </script>
 </body>
 
