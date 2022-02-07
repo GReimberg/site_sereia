@@ -2696,7 +2696,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     
     //Tag: check if user has seen the contact form
     function isFormInViewport() {
-      let formContainer = document.querySelector('section#contact>div.container');
+      let form = document.querySelector('section#contact');
       let navBar = document.querySelector('nav');
 
       let formRect = formContainer.getBoundingClientRect();
@@ -2722,6 +2722,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       if (isFormInViewport()) {
         document.removeEventListener('scroll', sendFormSeen);
       }
+    })
+    
+    //Tag: get if user submit contact message and status
+    document.querySelector('form#contactForm').addEventListener('submit', (evt) => {
+      let status = !evt.currentTarget.querySelector('.error') ? 'sucess' : 'fail';
+
+      tracker.send('event', {
+        category: 'Form',
+        action: 'submit',
+        label: 'Formulário Enviado',
+        cd1: 'Source Code',
+        cd2: 'Tag Name',
+        cd3: status
+      })
     })
     
   </script>
