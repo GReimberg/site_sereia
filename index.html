@@ -2694,6 +2694,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     
     document.addEventListener('DOMContentLoaded', () => setTimeout(sendPastMinute, 60000), {once: true});
     
+    //Tag: check if user has seen the contact form
+    function isFormInViewport() {
+      let formContainer = document.querySelector('section#contact>div.container');
+      let navBar = document.querySelector('nav');
+
+      let formRect = formContainer.getBoundingClientRect();
+      let navBarRect = navBar.getBoundingClientRect();
+
+      return (formRect.top - navBarRect.height) <= 0;
+    }
+    
+    function sendFormSeen() {
+      if (isFormInViewport()) {
+        tracker.send('event', {
+          category: 'Form',
+          action: 'scroll',
+          label: 'Formulário Visto',
+          cd1: 'Source Code',
+          cd2: 'Tag Name'
+        })
+      }
+    }
+    
+    document.addEventListener('scroll', sendFormSeen);
+    document.addEventListener('scroll', () => {
+      if (isFormInViewport()) {
+        document.removeEventListener('scroll', sendFormSeen);
+      }
+    })
+    
   </script>
 </body>
 
