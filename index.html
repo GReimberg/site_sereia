@@ -2613,12 +2613,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       'cd1': 'Source Code'})
     })
     
-    //Tag: user hit end of page
+    //TAG: Home - Scroll - Banhytics - Final da página
     function getScrollPercentage() {
       let doc = document.documentElement;
       let body = document.body;
 
-      return (doc['scrollTop'] || body['scrollTop'])/((doc['scrollHeight'] || body['scrollHeight']) - doc['clientHeight']) * 100
+      return (doc['scrollTop'] || body['scrollTop'])/((doc['scrollHeight'] || body['scrollHeight']) - doc['clientHeight']) * 100;
     }
     
     function sendEndOfPage() {
@@ -2628,7 +2628,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           action: 'scroll',
           label: 'End of page',
           cd1: 'Source Code',
-          cd2: 'Tag Name'
+          cd2: 'Home - Scroll - Banhytics - Final da página'
         })
       }
     }
@@ -2640,12 +2640,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       }
     })
     
-    //Tag: check if user has seen the contact form
+    //TAG: Home - Scroll - Banhytics - Visualição Form
     function isFormInViewport() {
       let form = document.querySelector('section#contact');
       let navBar = document.querySelector('nav');
 
-      let formRect = formContainer.getBoundingClientRect();
+      let formRect = form.getBoundingClientRect();
       let navBarRect = navBar.getBoundingClientRect();
 
       return (formRect.top - navBarRect.height) <= 0;
@@ -2658,7 +2658,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           action: 'scroll',
           label: 'Formulário Visto',
           cd1: 'Source Code',
-          cd2: 'Tag Name'
+          cd2: 'Home - Scroll - Banhytics - Visualição Form'
         })
       }
     }
@@ -2670,21 +2670,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       }
     })
     
-    //Tag for first field on contact form
+    //TAG: Home - Input - Banhytics - Primeiro campo Form
     document.querySelector('form#contactForm').addEventListener('input', (evt) => {
       let field = evt.target.id;
       
       tracker.send('event', {
-        category: 'Forms',
+        category: 'Form',
         action: 'input',
         label: 'First Field',
         cd1: 'Source Code',
-        cd2: 'Tag Name',
+        cd2: 'Home - Input - Banhytics - Primeiro campo Form',
         cd3: field
       })
     }, {once:true})
     
-    //Tag: get if user submit contact message and status
+    //TAG: Home - Form Submission - Banhytics - Envio da mensagem
     document.querySelector('form#contactForm').addEventListener('submit', (evt) => {
       let status = !evt.currentTarget.querySelector('.error') ? 'sucess' : 'fail';
 
@@ -2693,12 +2693,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         action: 'submit',
         label: 'Formulário Enviado',
         cd1: 'Source Code',
-        cd2: 'Tag Name',
+        cd2: 'Home - Form Submission - Banhytics - Envio da mensagem',
         cd3: status
       })
     })
     
-    //Tag for navigation
+    //TAG: Home - Click - Banhytics - Navegação rápida
     document.querySelectorAll('nav a.page-scroll').forEach((el) => {
       el.addEventListener('click', (evt) => {
         let sectionName = evt.target.innerText;
@@ -2707,13 +2707,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           action: 'click',
           label: 'Nav Bar Header',
           cd1: 'Source Code',
-          cd2: 'Tag Name',
+          cd2: 'Home - Click - Banhytics - Navegação rápida',
           cd3: sectionName
         })
       })
     })
     
-    //Tag for social medias of team membears or site
+    //TAG: Home - Click - Banhytics - Redes Sociais
     document.querySelectorAll('ul.social-buttons').forEach((el) => {
       el.addEventListener('click', (evt) => {
         if (evt.target.tagName === 'A' || evt.target.tagName === 'I') {
@@ -2732,21 +2732,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             'action': 'click',
             'label':socialMedia,
             'cd1': 'Source Code',
-            'cd2': 'Tag name',
+            'cd2': 'Home - Click - Banhytics - Redes Sociais',
             'cd3': id
           })
         }
       })
     })
 
-    //Tag: user active for 1 minute
+    //TAG: Home - Timer - Banhytics - Ativo por 1 minuto
     function sendPastMinute() {
       tracker.send('event', {
         category: 'Tempo em página',
         action: 'timer',
         label: 'Usuário ativo a 1 minuto',
         cd1: 'Source Code',
-        cd2: 'Tag Name'
+        cd2: 'Home - Timer - Banhytics - Ativo por 1 minuto'
       }) 
     }
     
