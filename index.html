@@ -2673,6 +2673,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     //Tag for first field on contact form
     document.querySelector('form#contactForm').addEventListener('input', (evt) => {
       let field = evt.target.id;
+      
       tracker.send('event', {
         category: 'Forms',
         action: 'input',
@@ -2700,13 +2701,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     //Tag for navigation
     document.querySelectorAll('nav a.page-scroll').forEach((el) => {
       el.addEventListener('click', (evt) => {
+        let sectionName = evt.target.innerText;
         tracker.send('event', {
           category: 'Navegação',
           action: 'click',
           label: 'Nav Bar Header',
           cd1: 'Source Code',
           cd2: 'Tag Name',
-          cd3: evt.target.innerText
+          cd3: sectionName
         })
       })
     })
@@ -2714,14 +2716,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     //Tag for social medias of team membears or site
     document.querySelectorAll('ul.social-buttons').forEach((el) => {
       el.addEventListener('click', (evt) => {
-        tracker.send('event', {
-          'category': 'Social Media',
-          'action': 'click',
-          'label': evt.target.className.split('-')[1],
-          'cd1': 'Source Code',
-          'cd2': evt.currentTarget.closest('div').className === 'team-member' ? 'member-social' : 'site-social',
-          'cd3': evt.target.closest('div').querySelector('h4') ? evt.target.closest('div').querySelector('h4').innerText : null
-        })
+        if (evt.target.tagName === 'A' || evt.target.tagName === 'I') {
+          let socialMedia = evt.target.closest('li').querySelector('i').className.split('-')[1];
+          let divContainer = evt.currentTarget.closest('div');
+
+          let id = 'Site';
+
+          if (divContainer.className === 'team-member') {
+            let name = divContainer.querySelector('h4').innerText;
+            id = 'Member: ' + name
+          }
+
+          tracker.send('event', {
+            'category': 'Social Media',
+            'action': 'click',
+            'label':socialMedia,
+            'cd1': 'Source Code',
+            'cd2': 'Tag name',
+            'cd3': id
+          })
+        }
       })
     })
 
